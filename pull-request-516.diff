@@ -1,0 +1,283 @@
+diff --git a/.travis.yml b/.travis.yml
+index 2e8d266..d0658a5 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -1,4 +1,4 @@
+-osx_image: xcode6.4
++osx_image: xcode7
+ language: objective-c
+ install: script/bootstrap
+ script: script/cibuild
+diff --git a/Carthage/Checkouts/Nimble b/Carthage/Checkouts/Nimble
+index 8927113..91f3921 160000
+--- a/Carthage/Checkouts/Nimble
++++ b/Carthage/Checkouts/Nimble
+@@ -1 +1 @@
+-Subproject commit 8927113f877f32c8a01b41b746c4ac261b42c48e
++Subproject commit 91f3921fbfdae1b02def17b27267a13f4606ec03
+diff --git a/Carthage/Checkouts/Quick b/Carthage/Checkouts/Quick
+index 8bf96f7..ac5eadd 160000
+--- a/Carthage/Checkouts/Quick
++++ b/Carthage/Checkouts/Quick
+@@ -1 +1 @@
+-Subproject commit 8bf96f708924d728dab5f0cf7543b6f1b896a209
++Subproject commit ac5eadd202dd67741628f80fb96e8c57388d954d
+diff --git a/ObjectiveGit/GTBlame.h b/ObjectiveGit/GTBlame.h
+index e5bd396..2266813 100644
+--- a/ObjectiveGit/GTBlame.h
++++ b/ObjectiveGit/GTBlame.h
+@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
+ - (nullable instancetype)initWithGitBlame:(git_blame *)blame NS_DESIGNATED_INITIALIZER;
+ 
+ /// Get all the hunks in the blame. A convenience wrapper around `enumerateHunksUsingBlock:`
+-@property (nonatomic, strong, readonly) NSArray *hunks;
++@property (nonatomic, strong, readonly) NSArray<GTBlameHunk *> *hunks;
+ 
+ /// The number of hunks in the blame.
+ @property (nonatomic, readonly) NSUInteger hunkCount;
+diff --git a/ObjectiveGit/GTBranch.h b/ObjectiveGit/GTBranch.h
+index 381b7c6..e35546f 100644
+--- a/ObjectiveGit/GTBranch.h
++++ b/ObjectiveGit/GTBranch.h
+@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
+ /// error       - If not NULL, set to any error that occurs.
+ ///
+ /// Returns a (possibly empty) array of GTCommits, or nil if an error occurs.
+-- (nullable NSArray *)uniqueCommitsRelativeToBranch:(GTBranch *)otherBranch error:(NSError **)error;
++- (nullable NSArray<GTCommit *> *)uniqueCommitsRelativeToBranch:(GTBranch *)otherBranch error:(NSError **)error;
+ 
+ /// Deletes the local branch and nils out the reference.
+ - (BOOL)deleteWithError:(NSError **)error;
+diff --git a/ObjectiveGit/GTCommit.h b/ObjectiveGit/GTCommit.h
+index 23cdfc2..d721bf9 100644
+--- a/ObjectiveGit/GTCommit.h
++++ b/ObjectiveGit/GTCommit.h
+@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
+ 
+ @property (nonatomic, readonly, strong, nullable) GTSignature *author;
+ @property (nonatomic, readonly, strong, nullable) GTSignature *committer;
+-@property (nonatomic, readonly, copy) NSArray *parents;
++@property (nonatomic, readonly, copy) NSArray<GTCommit *> *parents;
+ @property (nonatomic, readonly, nullable) NSString *message;
+ @property (nonatomic, readonly) NSString *messageDetails;
+ @property (nonatomic, readonly) NSString *messageSummary;
+diff --git a/ObjectiveGit/GTConfiguration.h b/ObjectiveGit/GTConfiguration.h
+index f9346fe..1e67030 100644
+--- a/ObjectiveGit/GTConfiguration.h
++++ b/ObjectiveGit/GTConfiguration.h
+@@ -9,6 +9,7 @@
+ #import <Foundation/Foundation.h>
+ #import "git2/types.h"
+ 
++@class GTRemote;
+ @class GTRepository;
+ @class GTSignature;
+ 
+@@ -17,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
+ @interface GTConfiguration : NSObject
+ 
+ @property (nonatomic, readonly, strong, nullable) GTRepository *repository;
+-@property (nonatomic, readonly, copy) NSArray *configurationKeys;
++@property (nonatomic, readonly, copy) NSArray<NSString *> *configurationKeys;
+ 
+ /// The GTRemotes in the config. If the configuration isn't associated with any
+ /// repository, this will always be nil.
+-@property (nonatomic, readonly, copy, nullable) NSArray *remotes;
++@property (nonatomic, readonly, copy, nullable) NSArray<GTRemote *> *remotes;
+ 
+ - (instancetype)init NS_UNAVAILABLE;
+ 
+diff --git a/ObjectiveGit/GTEnumerator.h b/ObjectiveGit/GTEnumerator.h
+index aee9b3a..d3d9d60 100644
+--- a/ObjectiveGit/GTEnumerator.h
++++ b/ObjectiveGit/GTEnumerator.h
+@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
+ /// error - If not NULL, set to any error that occurs during traversal.
+ ///
+ /// Returns a (possibly empty) array of GTCommits, or nil if an error occurs.
+-- (nullable NSArray *)allObjectsWithError:(NSError **)error;
++- (nullable NSArray<GTCommit *> *)allObjectsWithError:(NSError **)error;
+ 
+ /// Gets the next commit.
+ ///
+diff --git a/ObjectiveGit/GTIndex.h b/ObjectiveGit/GTIndex.h
+index 2c226f8..35bdaef 100644
+--- a/ObjectiveGit/GTIndex.h
++++ b/ObjectiveGit/GTIndex.h
+@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
+ @property (nonatomic, readonly) NSUInteger entryCount;
+ 
+ /// The GTIndexEntries in the index.
+-@property (nonatomic, readonly, copy) NSArray *entries;
++@property (nonatomic, readonly, copy) NSArray<GTIndexEntry *> *entries;
+ 
+ /// Whether the index contains conflicted files.
+ @property (nonatomic, readonly) BOOL hasConflicts;
+@@ -220,7 +220,7 @@ NS_ASSUME_NONNULL_BEGIN
+ /// error     - When something goes wrong, this parameter is set. Optional.
+ ///
+ /// Returns `YES` in the event that everything has gone smoothly. Otherwise, `NO`.
+-- (BOOL)updatePathspecs:(nullable NSArray *)pathspecs error:(NSError **)error passingTest:(nullable BOOL (^)(NSString *matchedPathspec, NSString *path, BOOL *stop))block;
++- (BOOL)updatePathspecs:(nullable NSArray<NSString*> *)pathspecs error:(NSError **)error passingTest:(nullable BOOL (^)(NSString *matchedPathspec, NSString *path, BOOL *stop))block;
+ 
+ #pragma mark Deprecations
+ - (nullable GTIndexEntry *)entryWithName:(NSString *)name __deprecated_msg("use entryWithPath: instead.");
+diff --git a/ObjectiveGit/GTRemote.h b/ObjectiveGit/GTRemote.h
+index a80ed3e..7b6b9f8 100644
+--- a/ObjectiveGit/GTRemote.h
++++ b/ObjectiveGit/GTRemote.h
+@@ -56,13 +56,13 @@ typedef enum {
+ ///
+ /// This array will contain NSStrings of the form
+ /// `+refs/heads/*:refs/remotes/REMOTE/*`.
+-@property (nonatomic, readonly, copy, nullable) NSArray *fetchRefspecs;
++@property (nonatomic, readonly, copy, nullable) NSArray<NSString *> *fetchRefspecs;
+ 
+ /// The push refspecs for this remote.
+ ///
+ /// This array will contain NSStrings of the form
+ /// `+refs/heads/*:refs/remotes/REMOTE/*`.
+-@property (nonatomic, readonly, copy, nullable) NSArray *pushRefspecs;
++@property (nonatomic, readonly, copy, nullable) NSArray<NSString *> *pushRefspecs;
+ 
+ /// Tests if a name is valid
+ + (BOOL)isValidRemoteName:(NSString *)name;
+diff --git a/ObjectiveGit/GTRepository+Committing.h b/ObjectiveGit/GTRepository+Committing.h
+index fd4d1d2..e77ee21 100644
+--- a/ObjectiveGit/GTRepository+Committing.h
++++ b/ObjectiveGit/GTRepository+Committing.h
+@@ -25,11 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
+ /// error     - The error if one occurred.
+ ///
+ /// Returns the newly created commit, or nil if an error occurred.
+-- (nullable GTCommit *)createCommitWithTree:(GTTree *)tree message:(NSString *)message author:(GTSignature *)author committer:(GTSignature *)committer parents:(nullable NSArray *)parents updatingReferenceNamed:(nullable NSString *)refName error:(NSError **)error;
++- (nullable GTCommit *)createCommitWithTree:(GTTree *)tree message:(NSString *)message author:(GTSignature *)author committer:(GTSignature *)committer parents:(nullable NSArray<GTCommit *> *)parents updatingReferenceNamed:(nullable NSString *)refName error:(NSError **)error;
+ 
+ /// Creates a new commit using +createCommitWithTree:message:author:committer:parents:updatingReferenceNamed:error:
+ /// with -userSignatureForNow as both the author and committer.
+-- (nullable GTCommit *)createCommitWithTree:(GTTree *)tree message:(NSString *)message parents:(nullable NSArray *)parents updatingReferenceNamed:(nullable NSString *)refName error:(NSError **)error;
++- (nullable GTCommit *)createCommitWithTree:(GTTree *)tree message:(NSString *)message parents:(nullable NSArray<GTCommit *> *)parents updatingReferenceNamed:(nullable NSString *)refName error:(NSError **)error;
+ 
+ @end
+ 
+diff --git a/ObjectiveGit/GTRepository+RemoteOperations.h b/ObjectiveGit/GTRepository+RemoteOperations.h
+index 33f22b1..5afe6d2 100644
+--- a/ObjectiveGit/GTRepository+RemoteOperations.h
++++ b/ObjectiveGit/GTRepository+RemoteOperations.h
+@@ -48,7 +48,7 @@ extern NSString *const GTRepositoryRemoteOptionsCredentialProvider;
+ /// error - The error if one ocurred. Can be NULL.
+ ///
+ /// Retruns a (possibly empty) array with GTFetchHeadEntry objects. Will not be nil.
+-- (NSArray *)fetchHeadEntriesWithError:(NSError **)error;
++- (NSArray<GTFetchHeadEntry *> *)fetchHeadEntriesWithError:(NSError **)error;
+ 
+ #pragma mark - Push
+ 
+@@ -78,7 +78,7 @@ extern NSString *const GTRepositoryRemoteOptionsCredentialProvider;
+ ///
+ /// Returns YES if the push was successful, NO otherwise (and `error`, if provided,
+ /// will point to an error describing what happened).
+-- (BOOL)pushBranches:(NSArray *)branches toRemote:(GTRemote *)remote withOptions:(nullable NSDictionary *)options error:(NSError **)error progress:(nullable void (^)(unsigned int current, unsigned int total, size_t bytes, BOOL *stop))progressBlock;
++- (BOOL)pushBranches:(NSArray<GTBranch *> *)branches toRemote:(GTRemote *)remote withOptions:(nullable NSDictionary *)options error:(NSError **)error progress:(nullable void (^)(unsigned int current, unsigned int total, size_t bytes, BOOL *stop))progressBlock;
+ 
+ /// Delete a remote branch
+ ///
+diff --git a/ObjectiveGit/GTRepository+Reset.h b/ObjectiveGit/GTRepository+Reset.h
+index fc47b39..cbb0615 100644
+--- a/ObjectiveGit/GTRepository+Reset.h
++++ b/ObjectiveGit/GTRepository+Reset.h
+@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
+ /// error     - The error if one occurred.
+ ///
+ /// Returns whether the reset was successful.
+-- (BOOL)resetPathspecs:(NSArray *)pathspecs toCommit:(GTCommit *)commit error:(NSError **)error;
++- (BOOL)resetPathspecs:(NSArray<NSString *> *)pathspecs toCommit:(GTCommit *)commit error:(NSError **)error;
+ 
+ @end
+ 
+diff --git a/ObjectiveGit/GTRepository.h b/ObjectiveGit/GTRepository.h
+index 231e22a..b684d7f 100644
+--- a/ObjectiveGit/GTRepository.h
++++ b/ObjectiveGit/GTRepository.h
+@@ -260,7 +260,7 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
+ ///
+ /// returns an array of NSStrings holding the names of the references
+ /// returns nil if an error occurred and fills the error parameter
+-- (nullable NSArray *)referenceNamesWithError:(NSError **)error;
++- (nullable NSArray<NSString *> *)referenceNamesWithError:(NSError **)error;
+ 
+ /// Get the HEAD reference.
+ ///
+@@ -274,14 +274,14 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
+ /// error - If not NULL, set to any error that occurs.
+ ///
+ /// Returns an array of GTBranches or nil if an error occurs.
+-- (nullable NSArray *)localBranchesWithError:(NSError **)error;
++- (nullable NSArray<GTBranch *> *)localBranchesWithError:(NSError **)error;
+ 
+ /// Get the remote branches.
+ ///
+ /// error - If not NULL, set to any error that occurs.
+ ///
+ /// Returns an array of GTBranches or nil if an error occurs.
+-- (nullable NSArray *)remoteBranchesWithError:(NSError **)error;
++- (nullable NSArray<GTBranch *> *)remoteBranchesWithError:(NSError **)error;
+ 
+ /// Get branches with names sharing a given prefix.
+ ///
+@@ -289,7 +289,7 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
+ /// error - If not NULL, set to any error that occurs.
+ ///
+ /// Returns an array of GTBranches or nil if an error occurs.
+-- (nullable NSArray *)branchesWithPrefix:(NSString *)prefix error:(NSError **)error;
++- (nullable NSArray<GTBranch *> *)branchesWithPrefix:(NSString *)prefix error:(NSError **)error;
+ 
+ /// Get the local and remote branches and merge them together by combining local
+ /// branches with their remote branch, if they have one.
+@@ -297,21 +297,21 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
+ /// error - If not NULL, set to any error that occurs.
+ ///
+ /// Returns an array of GTBranches or nil if an error occurs.
+-- (nullable NSArray *)branches:(NSError **)error;
++- (nullable NSArray<GTBranch *> *)branches:(NSError **)error;
+ 
+ /// List all remotes in the repository
+ ///
+ /// error - will be filled if an error occurs
+ ///
+ /// returns an array of NSStrings holding the names of the remotes, or nil if an error occurred
+-- (nullable NSArray *)remoteNamesWithError:(NSError **)error;
++- (nullable NSArray<NSString *> *)remoteNamesWithError:(NSError **)error;
+ 
+ /// Get all tags in the repository.
+ ///
+ /// error - If not NULL, set to any error that occurs.
+ ///
+ /// Returns an array of GTTag or nil if an error occurs.
+-- (nullable NSArray *)allTagsWithError:(NSError **)error;
++- (nullable NSArray<GTTag *> *)allTagsWithError:(NSError **)error;
+ 
+ /// Count all commits in the current branch (HEAD)
+ ///
+@@ -367,7 +367,7 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
+ /// error(out)   - will be filled if an error occurs
+ ///
+ /// returns the local commits, an empty array if there is no remote branch, or nil if an error occurred
+-- (nullable NSArray *)localCommitsRelativeToRemoteBranch:(GTBranch *)remoteBranch error:(NSError **)error;
++- (nullable NSArray<GTCommit *> *)localCommitsRelativeToRemoteBranch:(GTBranch *)remoteBranch error:(NSError **)error;
+ 
+ /// Retrieves git's "prepared message" for the next commit, like the default
+ /// message pre-filled when committing after a conflicting merge.
+diff --git a/ObjectiveGit/GTTree.h b/ObjectiveGit/GTTree.h
+index 32e4b1d..3635e56 100644
+--- a/ObjectiveGit/GTTree.h
++++ b/ObjectiveGit/GTTree.h
+@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
+ @property (nonatomic, readonly) NSUInteger entryCount;
+ 
+ /// The contents of the tree, as an array of whose objects are of type `GTTreeEntry`
+-@property (nonatomic, strong, readonly, nullable) NSArray *entries;
++@property (nonatomic, strong, readonly, nullable) NSArray<GTTreeEntry *> *entries;
+ 
+ /// The underlying `git_object` as a `git_tree` object.
+ - (git_tree *)git_tree __attribute__((objc_returns_inner_pointer));
