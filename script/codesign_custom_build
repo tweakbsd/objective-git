@@ -1,0 +1,14 @@
+#!/bin/sh
+VERSION=$1
+FMWK_NAME=ObjectiveGit
+FMWK_PATH=../Builds/$FMWK_NAME/Custom/$FMWK_NAME.framework
+
+DEVELOPER_ID="Developer ID Application: Mario Stroehlein (9QC597932L)"
+
+machotool -f -w sourceversion=$VERSION -p $FMWK_PATH/$FMWK_NAME
+machotool -f -w dylib-current-version=$VERSION -p $FMWK_PATH/$FMWK_NAME
+machotool -f -w dylib-compatibility-version=$VERSION -p $FMWK_PATH/$FMWK_NAME
+machotool -f --add-flag MH_APP_EXTENSION_SAFE -p $FMWK_PATH/$FMWK_NAME
+machotool -f --add-flag MH_NO_REEXPORTED_DYLIBS -p $FMWK_PATH/$FMWK_NAME
+codesign -f -s "$DEVELOPER_ID" $FMWK_PATH
+
