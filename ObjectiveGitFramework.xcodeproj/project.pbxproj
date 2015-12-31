@@ -309,6 +309,7 @@
 		DD3D9513182A81E1004AF532 /* GTBlame.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3D9511182A81E1004AF532 /* GTBlame.m */; };
 		DD3D951C182AB25C004AF532 /* GTBlameHunk.h in Headers */ = {isa = PBXBuildFile; fileRef = DD3D951A182AB25C004AF532 /* GTBlameHunk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DD3D951D182AB25C004AF532 /* GTBlameHunk.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3D951B182AB25C004AF532 /* GTBlameHunk.m */; };
+		F86949AA1BF1B79E00A989D3 /* GTUtilityFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EFA0391B4059ED000FF7D0 /* GTUtilityFunctions.m */; };
 		F879D8311B4B788F002D5C07 /* Libgit2FeaturesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F879D82F1B4B77F4002D5C07 /* Libgit2FeaturesSpec.m */; };
 		F879D83C1B4B7F7D002D5C07 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01B6ED319F82E2000D411BC /* ObjectiveGit.framework */; };
 		F879D8441B4B80C7002D5C07 /* Libgit2FeaturesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F879D82F1B4B77F4002D5C07 /* Libgit2FeaturesSpec.m */; };
@@ -1572,6 +1573,7 @@
 				F8D007A71B4FA040009A8DAF /* QuickSpec+GTFixtures.m in Sources */,
 				F8D0079A1B4FA03B009A8DAF /* GTRepositoryCommittingSpec.m in Sources */,
 				F8D0078E1B4FA03B009A8DAF /* GTCommitSpec.m in Sources */,
+				F86949AA1BF1B79E00A989D3 /* GTUtilityFunctions.m in Sources */,
 				F8D0078F1B4FA03B009A8DAF /* GTConfigurationSpec.m in Sources */,
 				F8D0079B1B4FA03B009A8DAF /* GTSubmoduleSpec.m in Sources */,
 				F879D8441B4B80C7002D5C07 /* Libgit2FeaturesSpec.m in Sources */,
@@ -1659,6 +1661,7 @@
 					"-lssl",
 					"-lcurl",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1685,6 +1688,7 @@
 					"-lssl",
 					"-lcurl",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1695,6 +1699,7 @@
 			baseConfigurationReference = D0A463D817E57C45000F5021 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1807,6 +1812,7 @@
 				);
 				INFOPLIST_FILE = "ObjectiveGitTests/ObjectiveGitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1821,6 +1827,7 @@
 				);
 				INFOPLIST_FILE = "ObjectiveGitTests/ObjectiveGitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1875,6 +1882,7 @@
 					"-lssl",
 					"-lcurl",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1890,6 +1898,7 @@
 				);
 				INFOPLIST_FILE = "ObjectiveGitTests/ObjectiveGitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Test;
@@ -1920,6 +1929,7 @@
 					"-lgit2-ios",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1984,6 +1994,7 @@
 					"-lgit2-ios",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2016,6 +2027,7 @@
 					"-lgit2-ios",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2048,6 +2060,7 @@
 					"-lgit2-ios",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2104,6 +2117,7 @@
 					"-lssl",
 					"-lcurl",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ObjectiveGit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -2119,6 +2133,7 @@
 				);
 				INFOPLIST_FILE = "ObjectiveGitTests/ObjectiveGitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;
@@ -2199,10 +2214,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"NOCRYPT=1",
 					"NOUNCRYPT=1",
+					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2225,6 +2240,7 @@
 					External,
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};
@@ -2276,6 +2292,7 @@
 					External,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2328,6 +2345,7 @@
 					External,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2380,6 +2398,7 @@
 					External,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libgit2.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
