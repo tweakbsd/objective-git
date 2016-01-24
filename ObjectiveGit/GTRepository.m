@@ -808,10 +808,19 @@ static int checkoutNotifyCallback(git_checkout_notify_t why, const char *path, c
 	checkoutOptions.checkout_strategy = strategy;
 	checkoutOptions.progress_cb = checkoutProgressCallback;
 	checkoutOptions.progress_payload = (__bridge void *)progressBlock;
+	
+	
+	// TODO: Implement support for specifying a path array
+	// checkoutOptions.paths
 
 	checkoutOptions.notify_cb = checkoutNotifyCallback;
 	checkoutOptions.notify_flags = notifyFlags;
 	checkoutOptions.notify_payload = (__bridge void *)notifyBlock;
+	
+	NSArray* paths = [NSArray array];
+	
+	checkoutOptions.paths = paths.git_strarray;
+	
 
 	int gitError = git_checkout_tree(self.git_repository, target.git_object, &checkoutOptions);
 	if (gitError < GIT_OK) {
