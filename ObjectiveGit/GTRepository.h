@@ -509,6 +509,21 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
 /// Returns YES if operation was successful, NO otherwise
 - (BOOL)checkoutCommit:(GTCommit *)targetCommit strategy:(GTCheckoutStrategyType)strategy notifyFlags:(GTCheckoutNotifyFlags)notifyFlags error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock notifyBlock:(nullable int (^)(GTCheckoutNotifyFlags why, NSString *path, GTDiffFile *baseline, GTDiffFile *target, GTDiffFile *workdir))notifyBlock;
 
+/// Checkout a commit
+///
+/// targetCommit  - The commit to checkout. Must not be nil.
+/// paths		  - The file paths to checkout.
+/// strategy      - The checkout strategy to use.
+/// notifyFlags   - Flags that indicate which notifications should cause `notifyBlock`
+///                 to be called.
+/// error         - The error if one occurred. Can be NULL.
+/// notifyBlock   - The block to call back for notification handling. Can be nil.
+/// progressBlock - The block to call back for progress updates. Can be nil.
+///
+/// Returns YES if operation was successful, NO otherwise
+- (BOOL)checkoutCommit:(GTCommit *)targetCommit paths:(nullable NSArray<NSString*>*)paths strategy:(GTCheckoutStrategyType)strategy notifyFlags:(GTCheckoutNotifyFlags)notifyFlags error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock notifyBlock:(nullable int (^)(GTCheckoutNotifyFlags why, NSString *path, GTDiffFile *baseline, GTDiffFile *target, GTDiffFile *workdir))notifyBlock;
+
+
 /// Checkout a reference
 ///
 /// targetCommit  - The reference to checkout.
@@ -521,6 +536,21 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
 ///
 /// Returns YES if operation was successful, NO otherwise
 - (BOOL)checkoutReference:(GTReference *)targetReference strategy:(GTCheckoutStrategyType)strategy notifyFlags:(GTCheckoutNotifyFlags)notifyFlags error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock notifyBlock:(nullable int (^)(GTCheckoutNotifyFlags why, NSString *path, GTDiffFile *baseline, GTDiffFile *target, GTDiffFile *workdir))notifyBlock;
+
+
+/// Checkout specific files of a reference 
+///
+/// targetCommit  - The reference to checkout.
+/// paths		  - The file paths to checkout.
+/// strategy      - The checkout strategy to use.
+/// notifyFlags   - Flags that indicate which notifications should cause `notifyBlock`
+///                 to be called.
+/// error         - The error if one occurred. Can be NULL.
+/// notifyBlock   - The block to call back for notification handling. Can be nil.
+/// progressBlock - The block to call back for progress updates. Can be nil.
+///
+/// Returns YES if operation was successful, NO otherwise
+- (BOOL)checkoutReference:(GTReference *)targetReference paths:(nullable NSArray<NSString*>*)paths strategy:(GTCheckoutStrategyType)strategy notifyFlags:(GTCheckoutNotifyFlags)notifyFlags error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock notifyBlock:(nullable int (^)(GTCheckoutNotifyFlags why, NSString *path, GTDiffFile *baseline, GTDiffFile *target, GTDiffFile *workdir))notifyBlock;
 
 /// Convenience wrapper for checkoutCommit:strategy:notifyFlags:error:notifyBlock:progressBlock without notifications
 - (BOOL)checkoutCommit:(GTCommit *)target strategy:(GTCheckoutStrategyType)strategy error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock;
