@@ -523,6 +523,8 @@ typedef NS_ENUM(NSInteger, GTRepositoryStateType) {
 /// Returns YES if operation was successful, NO otherwise
 - (BOOL)checkoutCommit:(GTCommit *)targetCommit strategy:(GTCheckoutStrategyType)strategy notifyFlags:(GTCheckoutNotifyFlags)notifyFlags error:(NSError **)error progressBlock:(nullable void (^)(NSString *path, NSUInteger completedSteps, NSUInteger totalSteps))progressBlock notifyBlock:(nullable int (^)(GTCheckoutNotifyFlags why, NSString *path, GTDiffFile *baseline, GTDiffFile *target, GTDiffFile *workdir))notifyBlock;
 
+
+// NOTE: Added by Mario Ströhlein for git Finder Sync
 /// Checkout a commit
 ///
 /// targetCommit  - The commit to checkout. Must not be nil.
