@@ -218,6 +218,8 @@ typedef NS_OPTIONS(NSInteger, GTDiffFindOptionsFlags) {
 /// Returns a newly created `GTDiff` object or nil on error.
 + (nullable instancetype)diffOldTree:(nullable GTTree *)oldTree withNewIndex:(nullable GTIndex *)newIndex inRepository:(GTRepository *)repository options:(nullable NSDictionary *)options error:(NSError **)error;
 
+// NOTE: Removed by Mario Ströhlein (not compatible with libgit 0.23.2)
+#if 0
 /// Create a diff between two `GTIndex`es.
 ///
 /// Both instances must be from the same repository, or an exception will be thrown.
@@ -234,6 +236,7 @@ typedef NS_OPTIONS(NSInteger, GTDiffFindOptionsFlags) {
 ///
 /// Returns a newly created `GTDiff` object or nil on error.
 + (nullable instancetype)diffOldIndex:(nullable GTIndex *)oldIndex withNewIndex:(nullable GTIndex *)newIndex inRepository:(GTRepository *)repository options:(nullable NSDictionary *)options error:(NSError **)error;
+#endif //0
 
 /// Create a diff between a repository's current index.
 ///

@@ -110,6 +110,8 @@ NSString *const GTDiffFindOptionsRenameLimitKey = @"GTDiffFindOptionsRenameLimit
 	return [[self alloc] initWithGitDiff:diff repository:repository];
 }
 
+// NOTE: Removed by Mario Ströhlein (not compatible with libgit 0.23.2)
+#if 0
 + (nullable instancetype)diffOldIndex:(GTIndex *)oldIndex withNewIndex:(GTIndex *)newIndex inRepository:(GTRepository *)repository options:(NSDictionary *)options error:(NSError **)error
 {
 	NSParameterAssert(repository != nil);
@@ -125,6 +127,7 @@ NSString *const GTDiffFindOptionsRenameLimitKey = @"GTDiffFindOptionsRenameLimit
 	
 	return [[self alloc] initWithGitDiff:diff repository:repository];
 }
+#endif //0
 
 + (instancetype)diffIndexFromTree:(GTTree *)tree inRepository:(GTRepository *)repository options:(NSDictionary *)options error:(NSError **)error {
 	NSParameterAssert(repository != nil);

@@ -367,13 +367,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3D6123BD1A6432F6008F831A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D0A330ED16027F1E00A616FA;
-			remoteInfo = libgit2;
-		};
 		6A3C609C17D5964E00382DFF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1203,7 +1196,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3D6123BE1A6432F6008F831A /* PBXTargetDependency */,
 			);
 			name = "ObjectiveGit-Mac";
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -1596,11 +1588,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3D6123BE1A6432F6008F831A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D0A330ED16027F1E00A616FA /* libgit2 */;
-			targetProxy = 3D6123BD1A6432F6008F831A /* PBXContainerItemProxy */;
-		};
 		6A3C609D17D5964E00382DFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6A28265217C69CB400C6A948 /* OpenSSL-iOS */;
