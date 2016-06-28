@@ -1629,8 +1629,8 @@
 			baseConfigurationReference = D0D8186A174421EB00995A2E /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				DYLIB_COMPATIBILITY_VERSION = 0.10.0;
-				DYLIB_CURRENT_VERSION = 0.10.0;
+				DYLIB_COMPATIBILITY_VERSION = 0.11.0;
+				DYLIB_CURRENT_VERSION = 0.11.0;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/../SharedFrameworks @loader_path/../SharedFrameworks";
@@ -1657,8 +1657,8 @@
 			baseConfigurationReference = D0D8186A174421EB00995A2E /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				DYLIB_COMPATIBILITY_VERSION = 0.10.0;
-				DYLIB_CURRENT_VERSION = 0.10.0;
+				DYLIB_COMPATIBILITY_VERSION = 0.11.0;
+				DYLIB_CURRENT_VERSION = 0.11.0;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/../SharedFrameworks @loader_path/../SharedFrameworks";
@@ -1865,8 +1865,8 @@
 			baseConfigurationReference = D0D8186A174421EB00995A2E /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				DYLIB_COMPATIBILITY_VERSION = 0.10.0;
-				DYLIB_CURRENT_VERSION = 0.10.0;
+				DYLIB_COMPATIBILITY_VERSION = 0.11.0;
+				DYLIB_CURRENT_VERSION = 0.11.0;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/../SharedFrameworks @loader_path/../SharedFrameworks";
@@ -2101,8 +2101,8 @@
 			baseConfigurationReference = D0D8186A174421EB00995A2E /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				DYLIB_COMPATIBILITY_VERSION = 0.10.0;
-				DYLIB_CURRENT_VERSION = 0.10.0;
+				DYLIB_COMPATIBILITY_VERSION = 0.11.0;
+				DYLIB_CURRENT_VERSION = 0.11.0;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/../SharedFrameworks @loader_path/../SharedFrameworks";
